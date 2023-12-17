@@ -1,7 +1,9 @@
 package bgw.crawling;
 
-public interface Crawling<T> {
+import java.util.List;
 
-    public T crawling();
+public interface Crawling {
+
+    public List<CrawlingVO> crawling() ;
 
 }
