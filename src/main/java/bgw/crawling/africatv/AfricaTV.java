@@ -14,9 +14,7 @@ import java.util.List;
 public  class AfricaTV implements Crawling {
     private final List<CrawlingVO>  africaVOS = new ArrayList<>();
 
-    AfricaTV(){
 
-    };
 
     public List<CrawlingVO> crawling(){
         WebDriver driver = new ChromeDriver();
