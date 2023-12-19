@@ -1,19 +1,15 @@
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.SQLInvalidAuthorizationSpecException;
-import java.util.logging.Logger;
+
 
 @Slf4j
 public class DbConnection {
 
-    private static Logger logger = Logger.getLogger("DbConnection");
     @Test
     public void mariaDBConnect(){
         
@@ -38,9 +34,10 @@ public class DbConnection {
                 conn.close();
             }
         } catch (SQLException e) {
-                e.printStackTrace();
+            log.error("close fail",e);
+
         }
-    };
+    }
 }
 
 

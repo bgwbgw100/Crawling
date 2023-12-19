@@ -3,10 +3,10 @@ package bgw.crawling.twitch;
 import bgw.crawling.Crawling;
 import bgw.crawling.CrawlingVO;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Action;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -62,7 +62,7 @@ public class Twitch implements Crawling {
         for (WebElement e : option) {
             if (e.getText().equals("한국어")) {
                 e.click();
-            };
+            }
             break;
         }
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[data-target='directory-container']")));

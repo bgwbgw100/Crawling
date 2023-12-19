@@ -1,7 +1,6 @@
 package bgw.crawling.twitch;
 
 import bgw.crawling.CrawlingVO;
-import lombok.Data;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

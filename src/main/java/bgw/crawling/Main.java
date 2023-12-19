@@ -1,24 +1,17 @@
 package bgw.crawling;
 
 import bgw.crawling.africatv.AfricaTV;
+import bgw.crawling.dao.CrawlingDAO;
 import bgw.crawling.mariadb.MariaDBConnection;
 import bgw.crawling.twitch.Twitch;
-import bgw.crawling.twitch.TwitchVO;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.io.UnsupportedEncodingException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 public class Main {
-    public static void main(String[] args) throws UnsupportedEncodingException {
+    public static void main(String[] args)  {
 
         List<Crawling> crawlingList = new ArrayList<>();
         List<CrawlingVO> crawlingVOList = new ArrayList<>();
@@ -29,10 +22,9 @@ public class Main {
 
         crawlingList.parallelStream().forEach(crawling -> crawlingVOList.addAll(crawling.crawling()));
 
+        CrawlingDAO.getInstance().insert(crawlingVOList);
 
-
-        crawlingVOList.forEach(crawlingVO -> System.out.println(crawlingVO.toString()));
-
+        MariaDBConnection.connectListClose();
 
     }
 }
