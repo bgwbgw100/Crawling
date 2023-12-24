@@ -3,6 +3,7 @@ package bgw.crawling.dao;
 import bgw.crawling.CrawlingVO;
 import bgw.crawling.africatv.AfricaVO;
 import bgw.crawling.mariadb.MariaDBConnection;
+import bgw.crawling.mariadb.MysqlConnection;
 import bgw.crawling.twitch.TwitchVO;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +17,7 @@ import java.util.List;
 @Slf4j
 public class CrawlingDAO {
 
-    private static final Connection connection = MariaDBConnection.getDBConnection();
+    private static final Connection connection = MysqlConnection.getDBConnection();
 
     @Getter
     private static final CrawlingDAO instance = new CrawlingDAO();
@@ -50,10 +51,10 @@ public class CrawlingDAO {
                     .append("       ,NOW() AS UPDATE_DT").append("\n")
                     .append("FROM DUAL").append("\n");
         }
-
-        sqlQuery.append(" query execute :  ").append("\n").append(sql.toString().replaceAll("\\?","{}"));
-
         sql.append("ON DUPLICATE KEY UPDATE NAME = VALUES(NAME), TITLE = VALUES(TITLE), VIEWS = VALUES(VIEWS)");
+        sqlQuery.append(" query execute :  ").append("\n").append(sql.toString().replaceAll("\\?","'{}'"));
+
+
 
         try (PreparedStatement statement = connection.prepareStatement(sql.toString())){
 

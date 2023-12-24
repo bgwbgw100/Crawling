@@ -3,6 +3,7 @@ package bgw.crawling;
 import bgw.crawling.africatv.AfricaTV;
 import bgw.crawling.dao.CrawlingDAO;
 import bgw.crawling.mariadb.MariaDBConnection;
+import bgw.crawling.mariadb.MysqlConnection;
 import bgw.crawling.twitch.Twitch;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,7 +25,7 @@ public class Main {
 
         CrawlingDAO.getInstance().insert(crawlingVOList);
 
-        MariaDBConnection.connectListClose();
+        MysqlConnection.connectListClose();
 
     }
 }
