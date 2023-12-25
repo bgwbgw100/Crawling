@@ -16,7 +16,9 @@ import java.util.List;
 
 @Slf4j
 public class Twitch implements Crawling {
-    private static final String[] categoryArr = {"league-of-legends","just-chatting","lost-ark","teamfight-tactics"};
+    private static final String[] categoryArr = {"league-of-legends","just-chatting","lost-ark"
+            ,"teamfight-tactics","minecraft","maplestory-worlds","maplestory","eternal-return"
+            ,"starcraft","pubg-battlegrounds","all"};
 
     private boolean pageSettingFlag = false;
 
@@ -24,21 +26,23 @@ public class Twitch implements Crawling {
     public List<CrawlingVO> crawling()  {
         List<CrawlingVO> crawlingVOList = new ArrayList<>();
         WebDriver driver = new ChromeDriver();
-        for (String category : categoryArr) {
-            categoryCrawling(driver, crawlingVOList,category);
-        }
 
+        for (int i = 0; i < categoryArr.length; i++) {
+            categoryCrawling(driver, crawlingVOList,categoryArr[i]);
+        }
 
         driver.quit();
         return crawlingVOList;
     }
 
     private void categoryCrawling(WebDriver driver, List<CrawlingVO> crawlingVOList, String category) {
-        driver.get("https://www.twitch.tv/directory/category/"+category+"?sort=VIEWER_COUNT");
+        String defaultUrl =  "all".equals(category) ? "https://www.twitch.tv/directory/" : "https://www.twitch.tv/directory/category/";
+
+        driver.get(defaultUrl+category+"?sort=VIEWER_COUNT");
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
         pageSetting(driver);
 
-        List<WebElement> contents = driver.findElement(By.className("iHafKo")).findElements(By.className("dUClxi"));
+        List<WebElement> contents = driver.findElement(By.cssSelector("div[data-target='directory-container']")).findElements(By.tagName("article"));
 
         for (WebElement content : contents) {
             TwitchVO twitchVO = new TwitchVO();
@@ -53,7 +57,7 @@ public class Twitch implements Crawling {
     //페이지 한국어 설정으로 셋팅
     private void pageSetting(WebDriver driver) {
         if(pageSettingFlag) return;
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         WebElement element = driver.findElement(By.cssSelector(".Layout-sc-1xcs6mc-0.fCJgZU.directory-header__filters"));
         List<WebElement> elements = element.findElements(By.className("ScCoreButton-sc-ocjdkq-0"));
         elements.get(0).click();
