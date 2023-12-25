@@ -2,11 +2,13 @@ package bgw.crawling.dao;
 
 import bgw.crawling.CrawlingVO;
 import bgw.crawling.africatv.AfricaVO;
+import bgw.crawling.config.SimpleSlf4jConfig;
 import bgw.crawling.mariadb.MariaDBConnection;
 import bgw.crawling.mariadb.MysqlConnection;
 import bgw.crawling.twitch.TwitchVO;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.simple.SimpleLoggerConfiguration;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -52,7 +54,7 @@ public class CrawlingDAO {
                     .append("FROM DUAL").append("\n");
         }
         sql.append("ON DUPLICATE KEY UPDATE NAME = VALUES(NAME), TITLE = VALUES(TITLE), VIEWS = VALUES(VIEWS)");
-        sqlQuery.append(" query execute :  ").append("\n").append(sql.toString().replaceAll("\\?","'{}'"));
+
 
 
 
@@ -75,7 +77,15 @@ public class CrawlingDAO {
                 paramList.add(crawlingVO.getViews());
             }
 
-            log.debug(sqlQuery.toString(),paramList.toArray());
+
+
+            sqlQuery.append(" query execute :  ").append("\n").append(sql.toString().replaceAll("\\?","'{}'"));
+            if(SimpleSlf4jConfig.getInitState()){
+                if("DEBUG".equals(SimpleSlf4jConfig.getLogLevel())){
+                    log.debug(sqlQuery.toString(),paramList.toArray());
+                };
+            }
+
             statement.executeUpdate();
 
         } catch (SQLException e) {

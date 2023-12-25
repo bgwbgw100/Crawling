@@ -20,7 +20,7 @@ public class MysqlConnection {
 
     public static Connection getDBConnection(){
         Connection conn = null;
-        String DB_DRIVER_CLASS = "org.mariadb.jdbc.Driver";
+        String DB_DRIVER_CLASS = "com.mysql.jdbc.Driver";
         String DB_URL = "jdbc:mysql://my8002.gabiadb.com:3306/crawling";
 
 
