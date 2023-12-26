@@ -32,13 +32,14 @@ public class CrawlingDAO {
         StringBuilder sqlQuery = new StringBuilder();
 
         sql.append("INSERT INTO LIST").append("\n")
-                .append("(PLAT_FORM,USER_ID,NAME,TITLE,VIEWS,UPDATE_DT)").append("\n")
+                .append("(PLAT_FORM,USER_ID,NAME,TITLE,VIEWS,UPDATE_DT,TAG)").append("\n")
                 .append("SELECT '' AS PLAT_FORM").append("\n")
                 .append("       ,'' AS USER_ID").append("\n")
                 .append("       ,'' AS NAME").append("\n")
                 .append("       ,'' AS TITLE").append("\n")
                 .append("       ,0  AS VIEWS").append("\n")
                 .append("       ,NOW() AS UPDATE_DT").append("\n")
+                .append("       ,'' AS TAG").append("\n")
                 .append("FROM DUAL").append("\n")
                 .append("WHERE '' != ''").append("\n");
 
@@ -51,9 +52,10 @@ public class CrawlingDAO {
                     .append("       ,? AS TITLE").append("\n")
                     .append("       ,? AS VIEWS").append("\n")
                     .append("       ,NOW() AS UPDATE_DT").append("\n")
+                    .append("       ,? AS TAG").append("\n")
                     .append("FROM DUAL").append("\n");
         }
-        sql.append("ON DUPLICATE KEY UPDATE NAME = VALUES(NAME), TITLE = VALUES(TITLE), VIEWS = VALUES(VIEWS)");
+        sql.append("ON DUPLICATE KEY UPDATE NAME = VALUES(NAME), TITLE = VALUES(TITLE), VIEWS = VALUES(VIEWS), TAG = VALUES(TAG)");
 
 
 
@@ -63,18 +65,20 @@ public class CrawlingDAO {
             int index = 1;
             for (CrawlingVO crawlingVO : dataList) {
                 String platForm = "non";
-                platForm = crawlingVO instanceof AfricaVO ? "africa" : platForm;
+                platForm = crawlingVO instanceof AfricaVO ? "afreeca" : platForm;
                 platForm = crawlingVO instanceof TwitchVO ? "twitch" : platForm;
                 statement.setString(index++,platForm);
                 statement.setString(index++,crawlingVO.getUserId());
                 statement.setString(index++,crawlingVO.getName());
                 statement.setString(index++,crawlingVO.getTitle());
                 statement.setInt(index++,crawlingVO.getViews());
+                statement.setString(index++,crawlingVO.getTag());
                 paramList.add(platForm);
                 paramList.add(crawlingVO.getUserId());
                 paramList.add(crawlingVO.getName());
                 paramList.add(crawlingVO.getTitle());
                 paramList.add(crawlingVO.getViews());
+                paramList.add(crawlingVO.getTag());
             }
 
 

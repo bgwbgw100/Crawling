@@ -82,4 +82,16 @@ public class TwitchVO extends CrawlingVO {
     public void setStringConverterViews(String views) {
         super.setStringConverterViews(views);
     }
+
+    @Override
+    public String getTag() {
+        return super.getTag();
+    }
+
+    @Override
+    public void setTag(String tag) {
+        tag = TwitchCategoryEnum.tagConverterByDirectory(tag);
+
+        super.setTag(tag);
+    }
 }

@@ -50,12 +50,14 @@ public class Twitch implements Crawling {
             String views = content.findElement(By.className("tw-media-card-stat")).getText();
             twitchVO.textExtraction(text);
             twitchVO.setStringConverterViews(views);
+            twitchVO.setTag(category);
             crawlingVOList.add(twitchVO);
         }
     }
 
     //페이지 한국어 설정으로 셋팅
     private void pageSetting(WebDriver driver) {
+
         if(pageSettingFlag) return;
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         WebElement element = driver.findElement(By.cssSelector(".Layout-sc-1xcs6mc-0.fCJgZU.directory-header__filters"));

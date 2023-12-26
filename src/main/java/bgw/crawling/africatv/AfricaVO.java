@@ -73,6 +73,7 @@ public class AfricaVO extends CrawlingVO {
         return super.toString();
     }
 
+
     public AfricaVO() {
         super();
     }
@@ -80,5 +81,16 @@ public class AfricaVO extends CrawlingVO {
     @Override
     public void setStringConverterViews(String views) {
         super.setStringConverterViews(views);
+    }
+
+    @Override
+    public String getTag() {
+        return super.getTag();
+    }
+
+    @Override
+    public void setTag(String tag) {
+        AfricaTVEnum.tagConverterByDirectory(tag);
+        super.setTag(tag);
     }
 }

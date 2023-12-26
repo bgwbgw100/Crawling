@@ -9,6 +9,7 @@ public class CrawlingVO {
     private String title;
     private String userId;
     private String name;
+    private String tag;
 
 
 

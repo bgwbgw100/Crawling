@@ -43,7 +43,7 @@ public  class AfricaTV implements Crawling {
         driver.get("https://www.afreecatv.com/?hash="+category);
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
         driver.findElement(By.className("btn-more")).findElement(By.tagName("button")).click();
-        getBrodList(africaVOS, driver,wait);
+        getBrodList(africaVOS, driver,wait,category);
         driver.quit();
     }
     private void tagCrawling(List<CrawlingVO> africaVOS,String category) {
@@ -57,7 +57,7 @@ public  class AfricaTV implements Crawling {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
             driver.get("https://www.afreecatv.com/?hash="+category);
-            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
 
             WebElement titleArea = driver.findElement(By.id("title_area"));
             List<WebElement> li = titleArea.findElements(By.tagName("li"));
@@ -91,7 +91,7 @@ public  class AfricaTV implements Crawling {
                 throw new RuntimeException(e);
             }
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-            getBrodList(africaVOS, driver, wait);
+            getBrodList(africaVOS, driver, wait,tag);
 
             driver.quit();
         });
@@ -101,7 +101,7 @@ public  class AfricaTV implements Crawling {
 
     }
 
-    private static void getBrodList(List<CrawlingVO> africaVOS, WebDriver driver,WebDriverWait wait) {
+    private static void getBrodList(List<CrawlingVO> africaVOS, WebDriver driver,WebDriverWait wait,String category) {
 
         WebElement textBox = driver.findElement(By.id("broadlist_area"));
 
@@ -123,6 +123,7 @@ public  class AfricaTV implements Crawling {
             africaVO.setName(name);
             africaVO.setStringConverterViews(views);
             africaVO.setTitle(title);
+            africaVO.setTag(category);
             africaVOS.add(africaVO);
         }
     }
