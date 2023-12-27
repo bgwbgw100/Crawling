@@ -10,24 +10,38 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class Main {
-
+    private static volatile boolean running = true;
     public static void main(String[] args)  {
 
         SimpleSlf4jConfig.init();
 
-        List<Crawling> crawlingList = new ArrayList<>();
-        List<CrawlingVO> crawlingVOList = new ArrayList<>();
-        Crawling africaTV = new AfricaTV();
-        Crawling twitch = new Twitch();
-        crawlingList.add(africaTV);
-        crawlingList.add(twitch);
+        Service service = Service.getInstance();
 
-        crawlingList.parallelStream().forEach(crawling -> crawlingVOList.addAll(crawling.crawling()));
 
-        CrawlingDAO.getInstance().insert(crawlingVOList);
+        //while 문에서 q 입력받을시  반복중단 하고 종료
+        Thread inputThread = new Thread(() -> {
+            Scanner scanner = new Scanner(System.in);
+
+            while (running) {
+                if (scanner.hasNextLine()) {
+                    String input = scanner.nextLine();
+                    if ("q".equals(input)) {
+                        running = false; // 'q' 입력 시 루프 종료
+                    }
+                }
+            }
+            scanner.close();
+        });
+
+        inputThread.start();
+
+        while (running){
+            Process.sleepProcess(service::saveCrawlingData);
+        }
 
         MysqlConnection.connectListClose();
 

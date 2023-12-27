@@ -19,6 +19,7 @@ import java.util.List;
 @Slf4j
 public class CrawlingDAO {
 
+    @Getter
     private static final Connection connection = MysqlConnection.getDBConnection();
 
     @Getter
@@ -26,10 +27,10 @@ public class CrawlingDAO {
 
     private CrawlingDAO(){}
 
-    public void insert(List<CrawlingVO> dataList){
+    public void insert(List<CrawlingVO> dataList, StringBuilder sqlQuery) throws SQLException {
         ArrayList<Object> paramList = new ArrayList<>();
         StringBuilder sql = new StringBuilder();
-        StringBuilder sqlQuery = new StringBuilder();
+        sqlQuery = new StringBuilder();
 
         sql.append("INSERT INTO LIST").append("\n")
                 .append("(PLAT_FORM,USER_ID,NAME,TITLE,VIEWS,UPDATE_DT,TAG)").append("\n")
@@ -57,9 +58,6 @@ public class CrawlingDAO {
         }
         sql.append("ON DUPLICATE KEY UPDATE NAME = VALUES(NAME), TITLE = VALUES(TITLE), VIEWS = VALUES(VIEWS), TAG = VALUES(TAG)");
 
-
-
-
         try (PreparedStatement statement = connection.prepareStatement(sql.toString())){
 
             int index = 1;
@@ -81,23 +79,29 @@ public class CrawlingDAO {
                 paramList.add(crawlingVO.getTag());
             }
 
-
-
             sqlQuery.append(" query execute :  ").append("\n").append(sql.toString().replaceAll("\\?","'{}'"));
             if(SimpleSlf4jConfig.getInitState()){
                 if("DEBUG".equals(SimpleSlf4jConfig.getLogLevel())){
                     log.debug(sqlQuery.toString(),paramList.toArray());
                 };
             }
-
             statement.executeUpdate();
-
-        } catch (SQLException e) {
-
-            log.info( sqlQuery.toString(),paramList.toArray());
-            log.error("statement Fail", e);
         }
+
+
     }
+
+    public void delete(StringBuilder sqlQuery) throws SQLException {
+        sqlQuery = new StringBuilder();
+        sqlQuery.append("DELETE FROM LIST");
+        try (PreparedStatement statement = connection.prepareStatement(sqlQuery.toString());){
+            statement.executeUpdate();
+        }
+
+
+
+    }
+
 
 
 
