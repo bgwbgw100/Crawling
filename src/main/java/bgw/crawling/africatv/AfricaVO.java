@@ -90,7 +90,7 @@ public class AfricaVO extends CrawlingVO {
 
     @Override
     public void setTag(String tag) {
-        AfricaTVEnum.tagConverterByDirectory(tag);
+        tag = AfricaTVEnum.tagConverterByDirectory(tag);
         super.setTag(tag);
     }
 }
