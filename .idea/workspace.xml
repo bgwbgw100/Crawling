@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b8dfca15-e65d-459e-93ed-15aef13f9520" name="변경" comment="태그 컨버터 누락 변경, 서비스 태그처리">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgw/crawling/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgw/crawling/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgw/crawling/africatv/AfricaTV.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgw/crawling/africatv/AfricaTV.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgw/crawling/twitch/Twitch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgw/crawling/twitch/Twitch.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -183,6 +180,8 @@
       <workItem from="1703673712607" duration="4699000" />
       <workItem from="1703678845646" duration="2099000" />
       <workItem from="1703754275373" duration="2383000" />
+      <workItem from="1703759572996" duration="2271000" />
+      <workItem from="1703775700589" duration="680000" />
     </task>
     <task id="LOCAL-00001" summary="africaTV 크롤링">
       <option name="closed" value="true" />
@@ -272,7 +271,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703680333421</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="태그 컨버터 누락 변경, 서비스 태그처리">
+      <option name="closed" value="true" />
+      <created>1703760091621</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1703760091621</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

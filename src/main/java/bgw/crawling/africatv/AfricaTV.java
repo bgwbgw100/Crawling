@@ -4,6 +4,7 @@ import bgw.crawling.Crawling;
 import bgw.crawling.CrawlingVO;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -28,7 +29,6 @@ public  class AfricaTV implements Crawling {
 
                     tagCrawling(africaVOS,category);
 
-
             }else {
                 categoryCrawling(africaVOS,category);
             }
@@ -38,13 +38,20 @@ public  class AfricaTV implements Crawling {
     }
 
     private void categoryCrawling(List<CrawlingVO> africaVOS,String category) {
-        WebDriver driver = new ChromeDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        driver.get("https://www.afreecatv.com/?hash="+category);
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
-        driver.findElement(By.className("btn-more")).findElement(By.tagName("button")).click();
-        getBrodList(africaVOS, driver,wait,category);
-        driver.quit();
+        WebDriver driver = null;
+        try {
+            driver = new ChromeDriver();
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            driver.get("https://www.afreecatv.com/?hash=" + category);
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
+            driver.findElement(By.className("btn-more")).findElement(By.tagName("button")).click();
+            getBrodList(africaVOS, driver, wait, category);
+            driver.quit();
+        } catch (ElementNotInteractableException e) {
+            log.error("ElementNotInteractableException " ,e);
+        } finally {
+            driver.quit();
+        }
     }
     private void tagCrawling(List<CrawlingVO> africaVOS,String category) {
         String tags[] = category.equals("game") ?  gameTags : null;
@@ -53,47 +60,54 @@ public  class AfricaTV implements Crawling {
 
 
         Arrays.stream(tags).parallel().forEach(tag -> {
-            WebDriver driver = new ChromeDriver();
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
-            driver.get("https://www.afreecatv.com/?hash="+category);
-            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
+            WebDriver driver = null;
+            try {
+                driver = new ChromeDriver();
+                WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
-            WebElement titleArea = driver.findElement(By.id("title_area"));
-            List<WebElement> li = titleArea.findElements(By.tagName("li"));
-            for (WebElement element : li) {
-                if ("텍스트형".equals(element.getText())) element.click();
+                driver.get("https://www.afreecatv.com/?hash=" + category);
+                driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
 
-            }
-
-
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("subCategory")));
-
-            WebElement subCategory = driver.findElement(By.id("subCategory"));
-
-            WebElement ul = subCategory.findElement(By.className("category_ul"));
-            List<WebElement> categoryList = ul.findElements(By.tagName("li"));
-
-            for (WebElement categoryLi : categoryList) {
-                WebElement a = categoryLi.findElement(By.tagName("a"));
-
-                if(tag.equals(a.getText())){
-                    log.debug(a.getText());
-                    a.click();
-                    break;
+                WebElement titleArea = driver.findElement(By.id("title_area"));
+                List<WebElement> li = titleArea.findElements(By.tagName("li"));
+                for (WebElement element : li) {
+                    if ("텍스트형".equals(element.getText())) element.click();
                 }
 
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("subCategory")));
+
+                WebElement subCategory = driver.findElement(By.id("subCategory"));
+
+                WebElement ul = subCategory.findElement(By.className("category_ul"));
+                List<WebElement> categoryList = ul.findElements(By.tagName("li"));
+
+                for (WebElement categoryLi : categoryList) {
+                    WebElement a = categoryLi.findElement(By.tagName("a"));
+
+                    if (tag.equals(a.getText())) {
+                        log.debug(a.getText());
+                        a.click();
+                        break;
+                    }
+
+                }
+
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+                getBrodList(africaVOS, driver, wait, tag);
+
+                driver.quit();
+            } catch (ElementNotInteractableException e) {
+                log.error("ElementNotInteractableException ", e);
+            } finally {
+                driver.quit();
             }
 
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-            getBrodList(africaVOS, driver, wait,tag);
-
-            driver.quit();
         });
 
 

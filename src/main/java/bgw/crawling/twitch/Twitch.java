@@ -4,6 +4,7 @@ import bgw.crawling.Crawling;
 import bgw.crawling.CrawlingVO;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -23,23 +24,42 @@ public class Twitch implements Crawling {
     private boolean pageSettingFlag = false;
 
     @Override
-    public List<CrawlingVO> crawling()  {
-        List<CrawlingVO> crawlingVOList = new ArrayList<>();
-        WebDriver driver = new ChromeDriver();
+    public List<CrawlingVO> crawling() {
+        WebDriver driver = null;
+        List<CrawlingVO> crawlingVOList = null;
+        boolean flag = true;
+        while (flag){
+            
+            flag =false;
+            try {
+                driver = new ChromeDriver();
 
-        for (int i = 0; i < categoryArr.length; i++) {
-            categoryCrawling(driver, crawlingVOList,categoryArr[i]);
+                crawlingVOList = new ArrayList<>(); // 에러날시 while문 돌면서 재할당
+
+                for (int i = 0; i < categoryArr.length; i++) {
+                    categoryCrawling(driver, crawlingVOList, categoryArr[i]);
+                }
+
+                driver.quit();
+            } catch (ElementNotInteractableException e) {
+
+                log.error("ElementNotInteractableException ", e);
+
+            } finally {
+                driver.quit();
+                flag = true;
+                
+            }
         }
 
-        driver.quit();
         return crawlingVOList;
     }
 
-    private void categoryCrawling(WebDriver driver, List<CrawlingVO> crawlingVOList, String category) {
+    private void categoryCrawling(WebDriver driver, List<CrawlingVO> crawlingVOList, String category) throws ElementNotInteractableException {
         String defaultUrl =  "all".equals(category) ? "https://www.twitch.tv/directory/" : "https://www.twitch.tv/directory/category/";
 
         driver.get(defaultUrl+category+"?sort=VIEWER_COUNT");
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(60000));
         pageSetting(driver);
 
         List<WebElement> contents = driver.findElement(By.cssSelector("div[data-target='directory-container']")).findElements(By.tagName("article"));
@@ -56,7 +76,7 @@ public class Twitch implements Crawling {
     }
 
     //페이지 한국어 설정으로 셋팅
-    private void pageSetting(WebDriver driver) {
+    private void pageSetting(WebDriver driver) throws ElementNotInteractableException {
 
         if(pageSettingFlag) return;
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -78,7 +98,7 @@ public class Twitch implements Crawling {
 
     }
 
-    private static void sort(WebDriver driver, List<WebElement> elements, WebDriverWait wait) {
+    private static void sort(WebDriver driver, List<WebElement> elements, WebDriverWait wait) throws ElementNotInteractableException {
 
         elements.get(1).click();
         List<WebElement> elements1 = driver.findElement(By.cssSelector(".Attached-sc-go6eno-0.gNEuqV")).findElements(By.cssSelector(".Layout-sc-1xcs6mc-0.jNrYjU"));
