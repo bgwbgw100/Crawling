@@ -4,24 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8dfca15-e65d-459e-93ed-15aef13f9520" name="변경" comment="africaTV 크롤링">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/bgw/crawling/AfricaTV.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/bgw/crawling/AfricaVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/bgw/crawling/Crawling.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/bgw/crawling/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/UsingSeleniumTest.java" afterDir="false" />
+    <list default="true" id="b8dfca15-e65d-459e-93ed-15aef13f9520" name="변경" comment="태그 컨버터 누락 변경, 서비스 태그처리">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgw/crawling/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgw/crawling/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,13 +40,28 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
+        <option value="Enum" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;bgwbgw100&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="fd59c6fe-ebda-4a02-b424-5ce6d993d76b" />
+        <option name="url" value="https://github.com/bgwbgw100/Crawling.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="jar://$PROJECT_DIR$/../../Program Files/Java/jdk-11.0.16.1/lib/src.zip!/java.base/java/lang/reflect/InvocationHandler.java" root0="SKIP_INSPECTION" />
@@ -77,7 +81,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Crawling/Crawling/src/main/java/bgw/crawling&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/brodcast/build.gradle&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -88,6 +92,11 @@
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
   }
 }</component>
   <component name="RecentsManager">
@@ -98,13 +107,13 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="애플리케이션.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="bgw.crawling.Main" />
       <module name="Crawling.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="bgw.crawling.*" />
+          <option name="PATTERN" value="bgw.crawling.africatv.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -112,9 +121,31 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="DbConnection.mariaDBConnect" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Crawling.test" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="DbConnection" />
+      <option name="METHOD_NAME" value="mariaDBConnect" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UsingSeleniumTest.eightComponents" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Crawling.test" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="UsingSeleniumTest" />
+      <option name="METHOD_NAME" value="eightComponents" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="애플리케이션.Main" />
+        <item itemvalue="JUnit.DbConnection.mariaDBConnect" />
+        <item itemvalue="JUnit.UsingSeleniumTest.eightComponents" />
       </list>
     </recent_temporary>
   </component>
@@ -130,16 +161,162 @@
       <workItem from="1702701531265" duration="31000" />
       <workItem from="1702701579811" duration="1582000" />
       <workItem from="1702706648071" duration="4194000" />
-      <workItem from="1702711055515" duration="1664000" />
+      <workItem from="1702711055515" duration="13864000" />
+      <workItem from="1702789353663" duration="23151000" />
+      <workItem from="1702894905790" duration="6000" />
+      <workItem from="1702989794170" duration="7260000" />
+      <workItem from="1703231715217" duration="1085000" />
+      <workItem from="1703329074576" duration="6230000" />
+      <workItem from="1703391877516" duration="3697000" />
+      <workItem from="1703432908106" duration="1676000" />
+      <workItem from="1703434677829" duration="1114000" />
+      <workItem from="1703470287838" duration="162000" />
+      <workItem from="1703470682938" duration="468000" />
+      <workItem from="1703471229493" duration="5384000" />
+      <workItem from="1703476639425" duration="248000" />
+      <workItem from="1703477111175" duration="601000" />
+      <workItem from="1703489333815" duration="18986000" />
+      <workItem from="1703518637550" duration="97000" />
+      <workItem from="1703564129851" duration="69000" />
+      <workItem from="1703594295044" duration="95000" />
+      <workItem from="1703594523200" duration="1994000" />
+      <workItem from="1703673712607" duration="4699000" />
+      <workItem from="1703678845646" duration="2099000" />
+      <workItem from="1703754275373" duration="2383000" />
     </task>
+    <task id="LOCAL-00001" summary="africaTV 크롤링">
+      <option name="closed" value="true" />
+      <created>1702712925344</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1702712925344</updated>
+    </task>
+    <task id="LOCAL-00002" summary="트위치 크롤링, 마리아 DB 연결">
+      <option name="closed" value="true" />
+      <created>1702812256030</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1702812256030</updated>
+    </task>
+    <task id="LOCAL-00003" summary="구조변경">
+      <option name="closed" value="true" />
+      <created>1702819932689</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1702819932689</updated>
+    </task>
+    <task id="LOCAL-00004" summary="DB INSERT">
+      <option name="closed" value="true" />
+      <created>1702997002703</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1702997002703</updated>
+    </task>
+    <task id="LOCAL-00005" summary="sql 로그 코드 개선">
+      <option name="closed" value="true" />
+      <created>1703343538414</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1703343538414</updated>
+    </task>
+    <task id="LOCAL-00006" summary="MySQL 호스팅 DB 연결 추가">
+      <option name="closed" value="true" />
+      <created>1703435719360</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1703435719360</updated>
+    </task>
+    <task id="LOCAL-00007" summary="MySQL 호스팅 DB 연결 에러수정 로그설정 추가">
+      <option name="closed" value="true" />
+      <created>1703475812686</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1703475812686</updated>
+    </task>
+    <task id="LOCAL-00008" summary="아프리카 크롤링 방식변경 트위치 대기시간 5 -&gt; 15 변경">
+      <option name="closed" value="true" />
+      <created>1703507364149</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1703507364149</updated>
+    </task>
+    <task id="LOCAL-00009" summary="태그추가 및 각종 수정">
+      <option name="closed" value="true" />
+      <created>1703594379353</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1703594379353</updated>
+    </task>
+    <task id="LOCAL-00010" summary="3분마다 반복실행 반복문 추가">
+      <option name="closed" value="true" />
+      <created>1703678349783</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1703678349783</updated>
+    </task>
+    <task id="LOCAL-00011" summary="태그 컨버터 누락 변경, 서비스 태그처리">
+      <option name="closed" value="true" />
+      <created>1703680333421</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1703680333421</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="africaTV 크롤링" />
-    <option name="LAST_COMMIT_MESSAGE" value="africaTV 크롤링" />
+    <MESSAGE value="트위치 크롤링, 마리아 DB 연결" />
+    <MESSAGE value="구조변경" />
+    <MESSAGE value="DB INSERT" />
+    <MESSAGE value="sql 로그 코드 개선" />
+    <MESSAGE value="MySQL 호스팅 DB 연결 추가" />
+    <MESSAGE value="MySQL 호스팅 DB 연결 에러수정 로그설정 추가" />
+    <MESSAGE value="아프리카 크롤링 방식변경 트위치 대기시간 5 -&gt; 15 변경" />
+    <MESSAGE value="태그추가 및 각종 수정" />
+    <MESSAGE value="3분마다 반복실행 반복문 추가" />
+    <MESSAGE value="태그 컨버터 누락 변경, 서비스 태그처리" />
+    <option name="LAST_COMMIT_MESSAGE" value="태그 컨버터 누락 변경, 서비스 태그처리" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/DbConnection.java</url>
+          <line>13</line>
+          <properties class="DbConnection" method="mariaDBConnect">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

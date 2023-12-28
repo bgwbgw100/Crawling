@@ -7,6 +7,7 @@ import bgw.crawling.mariadb.MariaDBConnection;
 import bgw.crawling.mariadb.MysqlConnection;
 import bgw.crawling.twitch.Twitch;
 import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,8 @@ public class Main {
         SimpleSlf4jConfig.init();
 
         Service service = Service.getInstance();
+
+       
 
 
         //while 문에서 q 입력받을시  반복중단 하고 종료
