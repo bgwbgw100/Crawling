@@ -43,10 +43,10 @@ public class Twitch implements Crawling {
             } catch (ElementNotInteractableException e) {
 
                 log.error("ElementNotInteractableException ", e);
-
+                flag = true;
             } finally {
                 driver.quit();
-                flag = true;
+
                 
             }
         }
