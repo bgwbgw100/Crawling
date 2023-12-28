@@ -40,7 +40,6 @@ public class Twitch implements Crawling {
                     categoryCrawling(driver, crawlingVOList, categoryArr[i]);
                 }
 
-                driver.quit();
             } catch (ElementNotInteractableException e) {
 
                 log.error("ElementNotInteractableException ", e);
