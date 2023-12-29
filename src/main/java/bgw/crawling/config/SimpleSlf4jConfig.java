@@ -16,7 +16,8 @@ public class SimpleSlf4jConfig {
         if (!init) {
             String level = "DEBUG";
             System.setProperty(SimpleLogger.DEFAULT_LOG_LEVEL_KEY,level);
-            System.setProperty(SimpleLogger.LOG_FILE_KEY,"system.out");
+            //System.setProperty(SimpleLogger.LOG_FILE_KEY,"system.out");
+            System.setProperty(SimpleLogger.LOG_FILE_KEY, "logs/app.log");
             logLevel =level;
             init =true;
 

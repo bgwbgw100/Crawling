@@ -21,7 +21,7 @@ public class MariaDBConnection {
     public static Connection getDBConnection(){
         Connection conn = null;
         String DB_DRIVER_CLASS = "org.mariadb.jdbc.Driver";
-        String DB_URL = "jdbc:mariadb://localHost:3306/crawling";
+        String DB_URL = "jdbc:mariadb://localHost:3306/crawling?autoReconnect=true";
 
 
         try {
