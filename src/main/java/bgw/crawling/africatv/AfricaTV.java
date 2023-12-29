@@ -46,8 +46,9 @@ public  class AfricaTV implements Crawling {
             driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
             driver.findElement(By.className("btn-more")).findElement(By.tagName("button")).click();
             getBrodList(africaVOS, driver, wait, category);
-        } catch (ElementNotInteractableException e) {
+        } catch (Exception e) {
             log.error("ElementNotInteractableException " ,e);
+        }finally {
             driver.quit();
         }
     }
@@ -99,7 +100,7 @@ public  class AfricaTV implements Crawling {
                 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
                 getBrodList(africaVOS, driver, wait, tag);
 
-            } catch (ElementNotInteractableException e) {
+            } catch (Exception e) {
                 log.error("ElementNotInteractableException ", e);
             } finally {
                 driver.quit();
