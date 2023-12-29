@@ -1,16 +1,11 @@
 package bgw.crawling;
 
-import bgw.crawling.africatv.AfricaTV;
 import bgw.crawling.config.SimpleSlf4jConfig;
-import bgw.crawling.dao.CrawlingDAO;
-import bgw.crawling.mariadb.MariaDBConnection;
 import bgw.crawling.mariadb.MysqlConnection;
-import bgw.crawling.twitch.Twitch;
-import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.chrome.ChromeOptions;
+import bgw.crawling.service.Service;
+import bgw.crawling.service.ServiceImpl;
+import bgw.crawling.service.ServiceProxy;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 
@@ -20,10 +15,7 @@ public class Main {
 
         SimpleSlf4jConfig.init();
 
-        Service service = Service.getInstance();
-
-       
-
+        Service service = ServiceProxy.getInstance();
 
         //while 문에서 q 입력받을시  반복중단 하고 종료
         Thread inputThread = new Thread(() -> {
@@ -43,7 +35,13 @@ public class Main {
         inputThread.start();
 
         while (running){
-            Process.sleepProcess(service::saveCrawlingData);
+            Process.sleepProcess(() -> {
+                try {
+                    service.saveCrawlingData();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
         }
 
         MysqlConnection.connectListClose();

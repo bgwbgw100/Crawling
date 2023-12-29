@@ -7,6 +7,7 @@ import bgw.crawling.mariadb.MariaDBConnection;
 import bgw.crawling.mariadb.MysqlConnection;
 import bgw.crawling.twitch.TwitchVO;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.simple.SimpleLoggerConfiguration;
 
@@ -19,15 +20,14 @@ import java.util.List;
 @Slf4j
 public class CrawlingDAO {
 
-    @Getter
-    private static final Connection connection = MysqlConnection.getDBConnection();
+
 
     @Getter
     private static final CrawlingDAO instance = new CrawlingDAO();
 
     private CrawlingDAO(){}
 
-    public void insert(List<CrawlingVO> dataList, StringBuilder sqlQuery) throws SQLException {
+    public void insert(List<CrawlingVO> dataList, StringBuilder sqlQuery ,Connection connection) throws SQLException {
         ArrayList<Object> paramList = new ArrayList<>();
         StringBuilder sql = new StringBuilder();
         sqlQuery = new StringBuilder();
@@ -91,7 +91,7 @@ public class CrawlingDAO {
 
     }
 
-    public void delete(StringBuilder sqlQuery) throws SQLException {
+    public void delete(StringBuilder sqlQuery,Connection connection) throws SQLException {
         sqlQuery = new StringBuilder();
         sqlQuery.append("DELETE FROM LIST");
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery.toString());){

@@ -16,8 +16,8 @@ public class MysqlConnection {
     private static final String CRAWLING_PASSWORD = System.getenv("CRAWLING_PASSWORD");
     private static final String CRAWLING_NAME = System.getenv("CRAWLING_NAME");
 
-    @Getter
-    private static final List<Connection> dbConnectList = new ArrayList<>();
+    private static final Connection connection = getDBConnection();
+
 
     private MysqlConnection(){}
 
@@ -38,20 +38,17 @@ public class MysqlConnection {
         }
 
         initSql(conn);
-        dbConnectList.add(conn);
         return conn;
     }
 
     public static void connectListClose(){
         int index = 0;
-        for (Connection connection : dbConnectList) {
-
-            try (connection){
-                log.info("closeConnection"+index++);
-            } catch (SQLException e) {
-                log.error("DBCloseError",e);
-            }
+        try (connection){
+            log.info("closeConnection");
+        } catch (SQLException e) {
+            log.error("DBCloseError",e);
         }
+
     }
 
     private static void initSql(Connection conn){
