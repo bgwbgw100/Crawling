@@ -24,7 +24,7 @@ public class MysqlConnection {
     public static Connection getDBConnection(){
         Connection conn = null;
         String DB_DRIVER_CLASS = "com.mysql.jdbc.Driver";
-        String DB_URL = "jdbc:mysql://my8002.gabiadb.com:3306/crawling";
+        String DB_URL = "jdbc:mysql://my8002.gabiadb.com:3306/crawling?autoReconnect=true";
 
 
         try {
@@ -36,6 +36,7 @@ public class MysqlConnection {
         } catch (SQLException e) {
             log.error("DB접근 실패",e);
         }
+
         initSql(conn);
         dbConnectList.add(conn);
         return conn;
