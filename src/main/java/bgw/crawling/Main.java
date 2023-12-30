@@ -44,7 +44,7 @@ public class Main {
             });
         }
 
-        MysqlConnection.connectListClose();
+        MysqlConnection.connectClose();
 
     }
 }
