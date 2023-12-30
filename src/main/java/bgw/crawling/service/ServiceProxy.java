@@ -41,13 +41,9 @@ public class ServiceProxy implements InvocationHandler {
             long startTime = System.currentTimeMillis();
             result = method.invoke(realService, args);
             log.info("{}",System.currentTimeMillis()- startTime);
-        } catch (CommunicationsException e){
-            MysqlConnection.reConnection();
-            log.error("",e);
-            throw e;
         } catch (Exception e) {
             connection.rollback();
-            log.error("",e);
+            log.error("rollback",e);
             throw e;
         }finally {
             connection.commit();

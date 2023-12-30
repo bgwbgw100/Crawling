@@ -5,17 +5,27 @@ import bgw.crawling.mariadb.MysqlConnection;
 import bgw.crawling.service.Service;
 import bgw.crawling.service.ServiceImpl;
 import bgw.crawling.service.ServiceProxy;
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 
+
 public class Main {
+
+
     private static volatile boolean running = true;
     public static void main(String[] args)  {
 
         SimpleSlf4jConfig.init();
 
         Service service = ServiceProxy.getInstance();
+
+        Logger log = LoggerFactory.getLogger(Main.class);
 
         //while 문에서 q 입력받을시  반복중단 하고 종료
         Thread inputThread = new Thread(() -> {
@@ -38,8 +48,15 @@ public class Main {
             Process.sleepProcess(() -> {
                 try {
                     service.saveCrawlingData();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
+                }catch (CommunicationsException e) {
+                        log.info("reconnect");
+                    try {
+                        MysqlConnection.reConnection();
+                    } catch (SQLException ex) {
+                        log.error("reConnect  fail", ex);
+                    }
+                }catch (Exception e) {
+                    log.error("error ", e);
                 }
             });
         }
