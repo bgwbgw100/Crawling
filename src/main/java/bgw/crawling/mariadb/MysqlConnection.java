@@ -70,7 +70,7 @@ public class MysqlConnection {
         } catch (SQLException e) {
             log.error("DB접근 실패",e);
         }
-
+        log.info("reconnection");
         initSql(connection);
     }
 

@@ -48,15 +48,13 @@ public class Main {
             Process.sleepProcess(() -> {
                 try {
                     service.saveCrawlingData();
-                }catch (CommunicationsException e) {
-                        log.info("reconnect");
+                }catch (Exception e) {
+                    log.error("error ", e);
                     try {
                         MysqlConnection.reConnection();
                     } catch (SQLException ex) {
                         log.error("reConnect  fail", ex);
                     }
-                }catch (Exception e) {
-                    log.error("error ", e);
                 }
             });
         }

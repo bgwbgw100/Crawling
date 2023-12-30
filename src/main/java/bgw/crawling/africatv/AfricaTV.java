@@ -63,7 +63,7 @@ public  class AfricaTV implements Crawling {
             WebDriver driver = null;
             try {
                 driver = new ChromeDriver();
-                WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+                WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(45));
 
                 driver.get("https://www.afreecatv.com/?hash=" + category);
                 driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
