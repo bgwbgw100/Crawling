@@ -1,8 +1,11 @@
 package bgw.crawling.service;
 
+import bgw.crawling.Transactional;
+
 import java.sql.Connection;
 
 public interface Service {
-    public void saveCrawlingData(Connection  connection) throws Exception;
+    @Transactional
+    public void saveCrawlingData() throws Exception;
 
 }

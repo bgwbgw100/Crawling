@@ -25,9 +25,12 @@ public class CrawlingDAO {
     @Getter
     private static final CrawlingDAO instance = new CrawlingDAO();
 
+    @Setter
+    private Connection connection;
+
     private CrawlingDAO(){}
 
-    public void insert(List<CrawlingVO> dataList, StringBuilder sqlQuery ,Connection connection) throws SQLException {
+    public void insert(List<CrawlingVO> dataList, StringBuilder sqlQuery ) throws SQLException {
         ArrayList<Object> paramList = new ArrayList<>();
         StringBuilder sql = new StringBuilder();
         sqlQuery = new StringBuilder();
@@ -91,7 +94,7 @@ public class CrawlingDAO {
 
     }
 
-    public void delete(StringBuilder sqlQuery,Connection connection) throws SQLException {
+    public void delete(StringBuilder sqlQuery) throws SQLException {
         sqlQuery = new StringBuilder();
         sqlQuery.append("DELETE FROM LIST");
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery.toString());){

@@ -2,9 +2,11 @@ package bgw.crawling.service;
 
 import bgw.crawling.Crawling;
 import bgw.crawling.CrawlingVO;
+import bgw.crawling.Transactional;
 import bgw.crawling.africatv.AfricaTV;
 import bgw.crawling.africatv.AfricaVO;
 import bgw.crawling.dao.CrawlingDAO;
+import bgw.crawling.dao.CrawlingDAOProxy;
 import bgw.crawling.twitch.Twitch;
 import bgw.crawling.twitch.TwitchVO;
 import lombok.Getter;
@@ -25,10 +27,11 @@ public class ServiceImpl implements Service{
 
     }
 
-    private final CrawlingDAO crawlingDAO = CrawlingDAO.getInstance();
+    private final CrawlingDAOProxy crawlingDAO = CrawlingDAOProxy.getInstance();
 
 
-    public void saveCrawlingData(Connection connection) throws  Exception{
+    @Transactional
+    public void saveCrawlingData() throws  Exception{
         // 크롤링
         List<Crawling> crawlingList = new ArrayList<>();
         List<CrawlingVO> crawlingVOList = new ArrayList<>();
@@ -58,8 +61,8 @@ public class ServiceImpl implements Service{
         StringBuilder sqlQuery = new StringBuilder();
 
         try {
-            crawlingDAO.delete(sqlQuery,connection);
-            crawlingDAO.insert(paramList,sqlQuery,connection);
+            crawlingDAO.delete(sqlQuery);
+            crawlingDAO .insert(paramList,sqlQuery);
         } catch (SQLException e) {
             log.error(sqlQuery.toString());
            throw new SQLException(e);
