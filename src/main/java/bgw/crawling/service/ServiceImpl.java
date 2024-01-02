@@ -19,16 +19,16 @@ import java.util.stream.Collectors;
 public class ServiceImpl implements Service{
 
 
-    private final Connection connection;
 
-    protected ServiceImpl( Connection connection){
-        this.connection = connection;
+
+    protected ServiceImpl( ){
+
     }
 
     private final CrawlingDAO crawlingDAO = CrawlingDAO.getInstance();
 
 
-    public void saveCrawlingData() throws  Exception{
+    public void saveCrawlingData(Connection connection) throws  Exception{
         // 크롤링
         List<Crawling> crawlingList = new ArrayList<>();
         List<CrawlingVO> crawlingVOList = new ArrayList<>();
@@ -66,6 +66,7 @@ public class ServiceImpl implements Service{
         }
 
     }
+
 
 
 

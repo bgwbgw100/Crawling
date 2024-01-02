@@ -15,9 +15,8 @@ import java.sql.SQLException;
 @Slf4j
 public class ServiceProxy implements InvocationHandler {
 
-    private Connection connection = MysqlConnection.getConnection();
 
-    private final Service realService = new ServiceImpl(connection);
+    private final Service realService = new ServiceImpl();
 
     private static final Service proxy = (Service) Proxy.newProxyInstance( Service.class.getClassLoader(),
             new Class<?>[] {Service.class},
@@ -36,7 +35,11 @@ public class ServiceProxy implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Exception {
         Object result ;
+        Connection connection = null;
         try {
+            for (int i = 0; i < args.length; i++) {
+                connection = args[i] instanceof Connection ? (Connection) args[i] : connection;
+            }
             connection.setAutoCommit(false);
             long startTime = System.currentTimeMillis();
             result = method.invoke(realService, args);
@@ -51,4 +54,6 @@ public class ServiceProxy implements InvocationHandler {
         }
         return result;
     }
+
+
 }

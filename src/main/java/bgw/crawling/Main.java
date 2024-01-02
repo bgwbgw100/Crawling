@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
+import java.sql.SQLNonTransientConnectionException;
 import java.util.Scanner;
 
 
@@ -47,14 +48,20 @@ public class Main {
         while (running){
             Process.sleepProcess(() -> {
                 try {
-                    service.saveCrawlingData();
-                }catch (Exception e) {
+                    service.saveCrawlingData(MysqlConnection.getConnection());
+                }catch (SQLNonTransientConnectionException e){
                     log.error("error ", e);
                     try {
                         MysqlConnection.reConnection();
-                    } catch (SQLException ex) {
+                    } catch (Exception ex) {
                         log.error("reConnect  fail", ex);
                     }
+                }
+                catch (Exception e) {
+                    log.error("error ", e);
+
+
+
                 }
             });
         }

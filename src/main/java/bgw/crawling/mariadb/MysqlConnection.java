@@ -55,11 +55,9 @@ public class MysqlConnection {
     }
 
     public static void reConnection() throws SQLException {
-        if(connection.isClosed()){
-            return;
-        }
+
         String DB_DRIVER_CLASS = "com.mysql.cj.jdbc.Driver";
-        String DB_URL = "jdbc:mysql://my8002.gabiadb.com:3306/crawling?autoReconnect=true";
+        String DB_URL = "jdbc:mysql://my8002.gabiadb.com:3306/crawling";
 
         try {
             connection = DriverManager.getConnection(DB_URL, CRAWLING_NAME, CRAWLING_PASSWORD);
