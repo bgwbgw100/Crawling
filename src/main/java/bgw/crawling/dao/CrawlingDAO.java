@@ -3,13 +3,10 @@ package bgw.crawling.dao;
 import bgw.crawling.CrawlingVO;
 import bgw.crawling.africatv.AfricaVO;
 import bgw.crawling.config.SimpleSlf4jConfig;
-import bgw.crawling.mariadb.MariaDBConnection;
-import bgw.crawling.mariadb.MysqlConnection;
 import bgw.crawling.twitch.TwitchVO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.simple.SimpleLoggerConfiguration;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

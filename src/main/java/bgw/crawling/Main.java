@@ -1,21 +1,15 @@
 package bgw.crawling;
 
 import bgw.crawling.config.SimpleSlf4jConfig;
-import bgw.crawling.mariadb.ConnectionRepository;
-import bgw.crawling.mariadb.MysqlConnection;
-import bgw.crawling.mariadb.ThreadLocalConnectionRepository;
+import bgw.crawling.connetion.ConnectionRepository;
+import bgw.crawling.connetion.MysqlConnection;
+import bgw.crawling.connetion.ThreadLocalConnectionRepository;
 import bgw.crawling.service.Service;
-import bgw.crawling.service.ServiceImpl;
 import bgw.crawling.service.ServiceProxy;
-import com.mysql.cj.jdbc.exceptions.CommunicationsException;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.SQLNonTransientConnectionException;
-import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -56,39 +50,44 @@ public class Main {
 
         while (running){
             Process.sleepProcess(() -> {
-                ThreadLocalConnectionRepository tLCR = ThreadLocalConnectionRepository.instance;
-                try {
-                    Optional<ConnectionRepository> rentalConnectionRepository = MysqlConnection.rentalConnectionRepository(); // ConnectionRepository 렌탈
-                    //커넥션 빌림
-                    if(rentalConnectionRepository.isEmpty()){
-                        log.info("남는 connection 없어요");
-                        return;
-                    }
-                    tLCR.putRentalConnectionRepository(rentalConnectionRepository.get()); // 쓰레드 로컬에 삽입
-                    service.saveCrawlingData();
-                }catch (SQLNonTransientConnectionException e){
-                    log.error("error ", e);
-                    try {
-                        MysqlConnection.reConnection(); // 복구처리
-                    } catch (Exception ex) {
-                        log.error("reConnect  fail", ex);
-                    }
-                }
-                catch (Exception e) {
-                    log.error("error ", e);
-                }finally {
-                    try {
-                        tLCR.getRentalConnectionRepository().finishRental(); // 반납
-                        tLCR.removeRentalConnectionRepository(); // 쓰레드 로컬 삭제
-                    }catch (Exception e){
-                        log.error("반납 error" , e);
-                    }
-
-                }
+                startProcess(log, service);
             });
         }
-
         MysqlConnection.connectClose();
-
     }
+
+    private static void startProcess(Logger log, Service service) {
+        ThreadLocalConnectionRepository tLCR = ThreadLocalConnectionRepository.instance;
+        try {
+            Optional<ConnectionRepository> rentalConnectionRepository = MysqlConnection.rentalConnectionRepository(); // ConnectionRepository 렌탈
+            //커넥션 빌림
+            if(rentalConnectionRepository.isEmpty()){
+                log.info("남는 connection 없어요");
+                return;
+            }
+            tLCR.putRentalConnectionRepository(rentalConnectionRepository.get()); // 쓰레드 로컬에 삽입
+            service.saveCrawlingData();
+        }catch (SQLNonTransientConnectionException e){
+            log.error("error ", e);
+            try {
+                MysqlConnection.reConnection(); // 복구처리
+            } catch (Exception ex) {
+                log.error("reConnect  fail", ex);
+            }
+        }
+        catch (Exception e) {
+            log.error("error ", e);
+        }finally {
+            try {
+
+                tLCR.getRentalConnectionRepository().finishRental(); // 반납
+                tLCR.removeRentalConnectionRepository(); // 쓰레드 로컬 삭제
+            }catch (Exception e){
+                log.error("반납 error" , e);
+            }
+
+        }
+    }
+
+
 }

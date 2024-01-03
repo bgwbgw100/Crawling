@@ -1,4 +1,4 @@
-package bgw.crawling.mariadb;
+package bgw.crawling.connetion;
 
 public class ThreadLocalConnectionRepository {
     public static final ThreadLocalConnectionRepository instance = new ThreadLocalConnectionRepository();

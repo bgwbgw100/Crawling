@@ -1,4 +1,4 @@
-package bgw.crawling.mariadb;
+package bgw.crawling.connetion;
 
 import lombok.extern.slf4j.Slf4j;
 

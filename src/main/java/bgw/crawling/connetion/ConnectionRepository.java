@@ -1,10 +1,8 @@
-package bgw.crawling.mariadb;
+package bgw.crawling.connetion;
 
 
 
 import lombok.Getter;
-import lombok.Setter;
-import org.slf4j.helpers.ThreadLocalMapOfStacks;
 
 import java.sql.Connection;
 import java.util.Optional;

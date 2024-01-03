@@ -1,11 +1,9 @@
 package bgw.crawling.dao;
 
 import bgw.crawling.CrawlingVO;
-import bgw.crawling.mariadb.ConnectionRepository;
-import bgw.crawling.mariadb.ThreadLocalConnectionRepository;
+import bgw.crawling.connetion.ThreadLocalConnectionRepository;
 import lombok.Getter;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 

@@ -62,7 +62,7 @@ public class ServiceImpl implements Service{
 
         try {
             crawlingDAO.delete(sqlQuery);
-            crawlingDAO .insert(paramList,sqlQuery);
+            crawlingDAO.insert(paramList,sqlQuery);
         } catch (SQLException e) {
             log.error(sqlQuery.toString());
            throw new SQLException(e);

@@ -1,20 +1,14 @@
 package bgw.crawling.service;
 
 import bgw.crawling.Transactional;
-import bgw.crawling.dao.CrawlingDAO;
-import bgw.crawling.mariadb.ConnectionRepository;
-import bgw.crawling.mariadb.MysqlConnection;
-import bgw.crawling.mariadb.ThreadLocalConnectionRepository;
-import com.mysql.cj.jdbc.exceptions.CommunicationsException;
+import bgw.crawling.connetion.ConnectionRepository;
+import bgw.crawling.connetion.ThreadLocalConnectionRepository;
 import lombok.extern.slf4j.Slf4j;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
-import java.sql.SQLException;
 
 @Slf4j
 public class ServiceProxy implements InvocationHandler {
