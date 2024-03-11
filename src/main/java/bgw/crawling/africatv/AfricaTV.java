@@ -1,5 +1,6 @@
 package bgw.crawling.africatv;
 
+import bgw.crawling.ChromeOption;
 import bgw.crawling.Crawling;
 import bgw.crawling.CrawlingVO;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +41,7 @@ public  class AfricaTV implements Crawling {
     private void categoryCrawling(List<CrawlingVO> africaVOS,String category) {
         WebDriver driver = null;
         try {
-            driver = new ChromeDriver();
+            driver = new ChromeDriver(ChromeOption.options);
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
             driver.get("https://www.afreecatv.com/?hash=" + category);
             driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
@@ -56,9 +57,7 @@ public  class AfricaTV implements Crawling {
         String tags[] = category.equals("game") ?  gameTags : null;
         if(tags == null) return;
 
-
-
-        Arrays.stream(tags).parallel().forEach(tag -> {
+        Arrays.stream(tags).forEach(tag -> {
 
             WebDriver driver = null;
             try {

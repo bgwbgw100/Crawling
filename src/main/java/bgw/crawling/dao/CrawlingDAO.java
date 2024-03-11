@@ -2,6 +2,7 @@ package bgw.crawling.dao;
 
 import bgw.crawling.CrawlingVO;
 import bgw.crawling.africatv.AfricaVO;
+import bgw.crawling.chzzk.ChzzkVO;
 import bgw.crawling.config.SimpleSlf4jConfig;
 import bgw.crawling.twitch.TwitchVO;
 import lombok.Getter;
@@ -65,6 +66,7 @@ public class CrawlingDAO {
                 String platForm = "non";
                 platForm = crawlingVO instanceof AfricaVO ? "afreeca" : platForm;
                 platForm = crawlingVO instanceof TwitchVO ? "twitch" : platForm;
+                platForm = crawlingVO instanceof ChzzkVO ? "chzzk" : platForm;
                 statement.setString(index++,platForm);
                 statement.setString(index++,crawlingVO.getUserId());
                 statement.setString(index++,crawlingVO.getName());

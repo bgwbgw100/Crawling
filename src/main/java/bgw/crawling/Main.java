@@ -1,11 +1,13 @@
 package bgw.crawling;
 
+import bgw.crawling.chzzk.Chzzk;
 import bgw.crawling.config.SimpleSlf4jConfig;
 import bgw.crawling.connetion.ConnectionRepository;
 import bgw.crawling.connetion.MysqlConnection;
 import bgw.crawling.connetion.ThreadLocalConnectionRepository;
 import bgw.crawling.service.Service;
 import bgw.crawling.service.ServiceProxy;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,15 +28,20 @@ public class Main {
         Service service = ServiceProxy.getInstance();
 
         MysqlConnection.init();
+        System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\Google\\Chrome\\Application\\chrome");
+
+
+        ChromeOptions options = ChromeOption.options;
+
+        options.addArguments("--headless");  // Headless 모드 활성화
+        options.addArguments("--window-size=1928,1080");  // 창 크기 설정
+
 
         Logger log = LoggerFactory.getLogger(Main.class);
-
-
 
         //while 문에서 q 입력받을시  반복중단 하고 종료
         Thread inputThread = new Thread(() -> {
             Scanner scanner = new Scanner(System.in);
-
             while (running) {
                 if (scanner.hasNextLine()) {
                     String input = scanner.nextLine();
@@ -45,7 +52,6 @@ public class Main {
             }
             scanner.close();
         });
-
         inputThread.start();
 
         while (running){
@@ -79,7 +85,6 @@ public class Main {
             log.error("error ", e);
         }finally {
             try {
-
                 tLCR.getRentalConnectionRepository().finishRental(); // 반납
                 tLCR.removeRentalConnectionRepository(); // 쓰레드 로컬 삭제
             }catch (Exception e){
