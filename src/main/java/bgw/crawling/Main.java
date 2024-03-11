@@ -28,7 +28,7 @@ public class Main {
         Service service = ServiceProxy.getInstance();
 
         MysqlConnection.init();
-        System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\Google\\Chrome\\Application\\chrome");
+        //System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\Google\\Chrome\\Application\\chrome");
 
 
         ChromeOptions options = ChromeOption.options;

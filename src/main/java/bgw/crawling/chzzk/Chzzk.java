@@ -41,12 +41,8 @@ public class Chzzk implements Crawling {
 
         List<WebElement> lis = driver.findElements(By.tagName("li"));
         List<CrawlingVO> crawlingVOList = new ArrayList<>();
-        int idx = 0;
-
-
 
         for (WebElement li: lis) {
-            idx++;
             ChzzkVO chzzkVO = new ChzzkVO();
 
             chzzkVO.setTag("all");
@@ -56,18 +52,17 @@ public class Chzzk implements Crawling {
             WebElement a = li.findElement(By.tagName("a"));
 
             String url = a.getAttribute("href");
-
             String[] splitText = text.split("\n");
+
+            chzzkVO.setUserId(url.substring(url.lastIndexOf("live/") + 5));
             if(splitText[0].equals("LIVE")){
                 chzzkVO.setStringConverterViews(splitText[1]);
                 chzzkVO.setTitle(splitText[4]);
                 chzzkVO.setName(splitText[6]);
-                chzzkVO.setUserId("미적용"+idx);
             }else{
                 chzzkVO.setStringConverterViews(splitText[2]);
                 chzzkVO.setTitle(splitText[5]);
                 chzzkVO.setName(splitText[7]);
-                chzzkVO.setUserId("미적용"+idx);
             }
             crawlingVOList.add(chzzkVO);
         }
