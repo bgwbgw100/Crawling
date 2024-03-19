@@ -45,9 +45,6 @@ public class ServiceImpl implements Service{
         crawlingList.add(chzzk);
         crawlingList.parallelStream().forEach(crawling -> crawlingVOList.addAll(crawling.crawling()));
 
-        for (CrawlingVO crawlingVO : crawlingVOList) {
-            System.out.println(crawlingVO.getName());
-        }
 
         List<CrawlingVO> paramList = crawlingVOList.stream().filter(crawlingVO -> {
 

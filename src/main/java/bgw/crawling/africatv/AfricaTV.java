@@ -21,7 +21,6 @@ public  class AfricaTV implements Crawling {
     private static final  List<String> categoryArr =  Arrays.asList("game","bora","all") ;
     private static final String[] gameTags = {"마인크래프트","스타","LoL","배틀그라운드","메이플스토리","TFT","로스트아크","종합게임","이터널 리턴"};
 
-
     public List<CrawlingVO> crawling(){
         List<CrawlingVO>  africaVOS = new ArrayList<>();
 
